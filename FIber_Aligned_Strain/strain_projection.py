@@ -125,11 +125,6 @@ def compute_fiber_aligned_strain(dti_data, strain_data, contour, z_slice, t, eig
                 polyorder=polyorder, 
                 mode = 'constant'
             )
-
-            #             # Flip values into Quadrant IV (negative) for the last index only if positive
-            # smoothed_component_values[-1] = (
-            #     -smoothed_component_values[-1] if smoothed_component_values[-1] > 0 else smoothed_component_values[-1]
-            # )
             
             # Assign smoothed values back to the original data
             smoothed_data[x, y, 0, :] = smoothed_component_values
@@ -181,9 +176,6 @@ def compute_fiber_aligned_strain(dti_data, strain_data, contour, z_slice, t, eig
 
     component_x = 0 #0 for x , 1 for y, 2 for z
     component_y = 1
-
-    # smoothed_strain_x = savgol_filter(E_masked_smooth[:,0,component_x], window_length=11, polyorder=3, mode = "nearest")
-    # smoothed_strain_y = savgol_filter(E_masked_smooth[:,0,component_y], window_length=11, polyorder=3, mode = "nearest")
 
     average_strain_x = np.mean(E_masked_smooth[:,0,component_x])  # Average of E_11 component, spatial coordinates and avg principal eigenvector values
 
@@ -248,8 +240,6 @@ if __name__ == "__main__":
     # Get number of time frames
     num_frames = L_vector.shape[3]  
 
-
-
     # Inside your processing loop:
     for t in range(num_frames):
         e_avg, e_std, theta_avg, theta_std, strain_avg_x, strain_avg_y, strain_x_std, strain_y_std = compute_fiber_aligned_strain(
@@ -290,7 +280,7 @@ if __name__ == "__main__":
     plt.title('Fiber Aligned Strain with Error Bars')
     plt.grid(False)
 
-    # Angle Plot
+    #angle projections
     plt.subplot(2, 2, 2)
     plt.errorbar(range(num_frames), theta_avgs, yerr=theta_stds,
                 fmt='o', capsize=5, color='orange', label='Angle Deviation')
@@ -299,7 +289,7 @@ if __name__ == "__main__":
     plt.title('Angular Deviation with Error Bars')
     plt.grid(False)
 
-    # New Strain Component Plot
+    #strain averages x
     plt.subplot(2, 2, 3)
     plt.errorbar(range(num_frames), strain_avgs_x, yerr = strain_x_stds, 
                     fmt = 'o-' ,  color='green')
@@ -311,7 +301,7 @@ if __name__ == "__main__":
     plt.title('Average Strains E1 xx for ROI')
     plt.grid(False)
 
-    # New DTI Magnitude Plot
+    #strain averages y
     plt.subplot(2, 2, 4)
     plt.errorbar(range(num_frames), strain_avgs_y, yerr = strain_y_stds, 
                      fmt = 'o-', color='purple')

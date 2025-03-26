@@ -9,22 +9,27 @@ import scipy.io
 """ This Script will take the strain data and properly clean the magnitude image from fat regions to be purely muscle oriented
 
     Inputs : Strain Data and Magnitude Image Data
-    Output: Filtered Image only plotting the Muscle"""
+    Output: Filtered Image only plotting the Muscle
+    
+    Disclaimers: Data is collected from Matlab and processed in Python for visualization and analysis purposes"""
 
 
-path = os.getcwd()
+"Loading the Data"
+current_directory_path = os.getcwd()
 
-mat_data_path = path + '\Patient_Data\JH_Data\JH.mat'
+patient_data_location = 'Patient_Data\JH_Data\JH.mat' #optional: modify if you store your data somewhere else
+
+mat_data_path = current_directory_path + patient_data_location
 
 mat_data = scipy.io.loadmat(mat_data_path)
 
 L_vector = mat_data['L_vector']
-L_vector = L_vector[1:-1, 1:-1, :, :, :, : ]
+L_vector = L_vector[1:-1, 1:-1, :, :, :, : ] 
 
 m_data = mat_data['m_data']
 
-Slice = 13
-Frame = 13
+Slice = 13 #change to your liking
+Frame = 13 #change to your liking
 
 
 def remove_edge_fat(m_data, slice, frame, t_lower=100, t_upper=200, aperture_size=5, 

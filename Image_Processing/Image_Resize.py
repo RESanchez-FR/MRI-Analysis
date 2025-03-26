@@ -39,7 +39,7 @@ output_width = 80
 output_height = 160
 output_image_path = "MAG_AL_Slice18.png"  # Optional: save the resized image
 
-resized_image = resize_image(input_image_path, output_width, output_height)
+resized_image = resize_image(input_image_path, output_width, output_height)  #callign the function
 
 if resized_image is not None:
   print(f"Image resized to {resized_image.shape}")
@@ -47,11 +47,5 @@ if resized_image is not None:
   cv2.imwrite(output_image_path, resized_image)
   print(f"Resized image saved to {output_image_path}")
 
-#   # Optionally, display the resized image using matplotlib
-#   import matplotlib.pyplot as plt
-#   plt.imshow(cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB)) #Correct the color using cv2's colorspace convert since cv2 reads it as BGR
-#   plt.title("Resized Image")
-#   plt.axis('off')
-#   plt.show()
 else:
   print("Image resizing failed.")
