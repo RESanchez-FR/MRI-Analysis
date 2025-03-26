@@ -10,13 +10,16 @@ from matplotlib.widgets import Button
 import mat73
 
 """This Python Script plots the RGB image of the strain data
-    Optional at the end to display the data. Just uncomment the line showing the plot below"""
+    Optional at the end to display the data. Just uncomment the line showing the plot below
+    
+    Results in a 3 plot Graph that has Strain, Magnitude and DTI Diffusion Tensor"""
 
 #get current working directory
-path = os.getcwd()
+cwd_path = os.getcwd()
 
+data_path = '\Strain_Visuals\data_BC.mat' #adjust to your data folder
 #checking if the mat file loads
-mat = scipy.io.loadmat(path + '\Strain_Visuals\AL_30MVC.mat')
+mat = scipy.io.loadmat(cwd_path + data_path)
 
 #acessing the varibales we need
 L_Vector = mat['L_vector'] #shape 160 80 24 32 3 3
@@ -27,7 +30,7 @@ m_data = mat['m_data'] # shape 160 80 24 32
 contour_points = []
 lines = []
 
-img_path = path + '\Images\Computing_Image'
+img_path = cwd_path + '\Images\Computing_Image'
 # Use os.path.join for robust path construction
 mag_img_path = os.path.join(img_path, 'Mag_IMG.png') #Changed path
 fiber_img_path = os.path.join(img_path, 'DTI_Slice12_AL.png') #Changed path
@@ -37,7 +40,6 @@ mag_img = cv2.imread(mag_img_path) #path from join
 
 fiber_img = cv2.imread(fiber_img_path) #path from join
 
-# strain_img = cv2.imread(strain_img_path)
 z_slice = 17 # indicate for slice + 1 on matlab
 frame = 17 # indicate for frame + 1 on matlab
 
@@ -248,4 +250,6 @@ def visualize_strain_data(eigenVectors, m_data, eigen_index, z_slice, frame, thr
 
     plt.show()
 
+
+#Example Usage
 visualize_strain_data(L_Vector, m_data, eigen_index=0, z_slice=z_slice , frame = frame)

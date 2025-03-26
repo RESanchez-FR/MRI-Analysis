@@ -59,18 +59,6 @@ def process_and_save_nii_slices(nii_file_name, output_folder, brightness_factor=
         # Convert back to float and rescale to [0, 1]
         grayscale_image = normalized_data.astype(float) / 255.0
 
-        # # Plot the result
-        # plt.figure(figsize=(10, 10))
-        # plt.imshow(grayscale_image, cmap='gray')
-        # plt.title(f'Slice {z_slice + 1} - Grayscale')
-        # plt.axis('off')
-
-        # # Save the image
-        # plt.savefig(os.path.join(images_path, f'fiber_direction_slice_{z_slice + 1:03d}.png'))
-        # plt.close()  # Close the figure to free up memory
-
-        # print(f"Processed and saved slice {z_slice + 1}")
-
     return nii_data
 
 

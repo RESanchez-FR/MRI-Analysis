@@ -2,6 +2,13 @@ import cv2
 import numpy as np
 import os
 
+"""This Function is used for removing regions and filling them with a black region.
+
+    MRI images can be noisy so this removes regions that are not of interest to use by simply drawing a contour
+
+    Images can be any format. This script focused on PNG Images
+"""
+
 def draw_contour(event, x, y, flags, param):
     global drawing, ix, iy, img, mask
 
@@ -23,10 +30,12 @@ def draw_contour(event, x, y, flags, param):
 
 
 #get current working directory
-path = os.getcwd()
+working_directory_path = os.getcwd()
+
+images_folder =  "\Images\Slice_7.png" # Replace with your image path
   
 # Example usage:
-input_image_path = path +  "\Images\Slice_7.png"  # Replace with your image path
+input_image_path = working_directory_path + images_folder 
 
 # Load the image
 img = cv2.imread(input_image_path)
