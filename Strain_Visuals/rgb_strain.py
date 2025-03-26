@@ -19,7 +19,7 @@ data_path = '\Strain_Visuals\data_BC.mat' #adjust to your data folder
 #checking if the mat file loads
 mat = scipy.io.loadmat(cwd_path + data_path)
 
-#acessing the varibales we need
+#acessing the varibales we need, can change to your needs
 L_Vector = mat['strain_data'] #shape 160 80 22 24 3 3
 m_data = mat['m_data'] # shape 160 80 24 24
 m_data = m_data[: , :, :-2, :] #to get into the correct shape
@@ -32,9 +32,6 @@ def visualize_strain_data(eigenVectors, m_data, eigen_index, z_slice, threshold=
         mask = np.squeeze(m_data[:, :, z_slice, frame]) <= threshold
 
         magnitude_data = np.squeeze(m_data[:, :, z_slice, frame])
-
-        # denoised_magnitude = medfilt2d(magnitude_data, kernel_size=1)
-
        
         # Extract and process the eigenVector data for color map
         data_slice = np.abs(np.squeeze(eigenVectors[:, :, z_slice, frame, eigen_index, :]))
@@ -112,7 +109,7 @@ def visualize_strain_data(eigenVectors, m_data, eigen_index, z_slice, threshold=
     return frames
 
 
-""" For Multiple Frames"""
+""" For Multiple Frames, uncomment to run below"""
 # for frame_num in range(m_data.shape[2]):
 
 #     visualize_strain_data(L_Vector, m_data, eigen_index=2, z_slice=frame_num)
