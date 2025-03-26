@@ -29,8 +29,6 @@ def process_and_save_nii_slices(nii_file_name, output_folder, brightness_factor=
     nii_img = nib.load(os.path.join(path, 'Nii_files', nii_file_name))
     nii_data = nii_img.get_fdata()
 
-    # print("Shape after loading:", nii_data.shape)
-
     # Create the output folder if it doesn't exist
     images_path = os.path.join(path, output_folder)
     os.makedirs(images_path, exist_ok=True)
@@ -77,4 +75,4 @@ def process_and_save_nii_slices(nii_file_name, output_folder, brightness_factor=
 
 
 
-# process_and_save_nii_slices('20231129_F020Y_2023112916JH_s03_fiber2.nii', 'Images/JH_DTI_Images')
+
